@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BsCalendar2HeartFill } from 'react-icons/bs';
 import { Col, Container, Row } from 'react-bootstrap';
 import Search from './components/Search.jsx';
+import AddAppointment from './components/AddAppointment.jsx';
+
 function App() {
   return (
     <>
@@ -16,26 +18,17 @@ function App() {
           </Col>
         </Row>
 
+<Row className='justify-content-center'>
+  <AddAppointment/>
+</Row>
+
         <Row className="justify-content-center">
-          <Col md={4}>
+          <Col md={6}>
             <Search />
           </Col>
         </Row>
 
-        <Row>
-          <Col md={3}>
-            <h3>Hello Bootstrap!</h3>
-          </Col>
-          <Col md={3}>
-            <h3>Hello Bootstrap!</h3>
-          </Col>
-          <Col md={3}>
-            <h3>Hello Bootstrap!</h3>
-          </Col>
-          <Col md={3}>
-            <h3>Hello Bootstrap!</h3>
-          </Col>
-        </Row>
+        
       </Container>
     </>
   );
