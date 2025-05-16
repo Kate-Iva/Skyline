@@ -1,10 +1,12 @@
 import './App.css'
-
+import { BsCalendar2HeartFill } from "react-icons/bs";
 function App() {
 
   return (
     <>
-      <h1>Appointments</h1>
+      <h1>
+        <BsCalendar2HeartFill />
+        Appointments</h1>
     </>
   )
 }
