@@ -4,7 +4,8 @@ import { BsCalendar2HeartFill } from 'react-icons/bs';
 import { Col, Container, Row, Card, ListGroup, } from 'react-bootstrap';
 import Search from './components/Search.jsx';
 import AddAppointment from './components/AddAppointment.jsx';
-import appointList from './data.json';
+import appointmentList from './data.json';
+import AppointmentInfo from './components/AppointmentInfo.jsx';
 
 function App() {
   return (
@@ -31,17 +32,12 @@ function App() {
 
 <Row className='justify-content-center'>
   <Col md={12}>
-  
+
   <Card className="mb-3 p-0">
     <Card.Header>Appointments</Card.Header>
     <ListGroup variant="flash">
-      {appointList.map(appointment => (
-        <ListGroup key={appointment.id} className='mb-3 mt-3'>
-           <p><small>Date: {appointment.aptDate}</small></p>
-           <p><strong>First Name:</strong> {appointment.firstName}</p>
-           <p><strong>Last Name:</strong> {appointment.lastName}</p>
-           <p><strong>Notes:</strong> {appointment.aptNotes}</p>
-        </ListGroup>
+      {appointmentList.map(appointment => (
+        <AppointmentInfo key={appointment.id} appointment={appointment}/>
       ))}
     </ListGroup>
   </Card>
