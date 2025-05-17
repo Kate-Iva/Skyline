@@ -1,12 +1,20 @@
 import { CardBody, Col, Card, Form, Row, Button } from 'react-bootstrap';
-
+import { useState } from 'react';
 const AddAppointment = () => {
+
+    let [toggleForm, setToggleForm] = useState(false);
+
   return (
     <>
       <Col md={12}>
         <Card className="mb-3 p-0">
-          <Card.Header>Add Appointment</Card.Header>
-          <CardBody>
+          <Card.Header>Add Appointment
+            <Button size="sm" 
+            className='small float-end' 
+            onClick={() => {setToggleForm(!toggleForm)}}>+</Button>
+          </Card.Header>
+          { toggleForm && 
+            <CardBody>
             <Form>
               <Row className="mb-3">
 
@@ -54,6 +62,7 @@ const AddAppointment = () => {
               <Button variant="primary">Submit</Button>
             </Form>
           </CardBody>
+          }
         </Card>
       </Col>
     </>
