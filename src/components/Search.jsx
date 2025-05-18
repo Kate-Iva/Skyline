@@ -18,11 +18,13 @@ const DropDown = () => {
     </>
   );
 };
-const Search = () => {
+const Search = ({query, onQueryChange}) => {
   return (
     <>
       <InputGroup className="mb-3">
-        <FormControl placeholder="search" />
+        <FormControl placeholder="Search" onChange={(event) => {
+            onQueryChange(event.target.value)
+        }} value={query} />
         <DropDown />
       </InputGroup>
     </>

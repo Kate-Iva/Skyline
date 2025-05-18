@@ -10,6 +10,17 @@ import { useCallback, useEffect, useState } from 'react';
 function App() {
 
   let [appointmentList, setAppointmentList] = useState([]);
+  let [query, setQuery] = useState("");
+
+  const filteredAppointments = appointmentList.filter(
+    item => {
+      return (
+        item.firstName.toLowerCase().includes(query.toLocaleLowerCase()) ||
+        item.lastName.toLowerCase().includes(query.toLocaleLowerCase()) ||
+        item.aptNotes.toLowerCase().includes(query.toLocaleLowerCase()) 
+      )
+    }
+  )
 
   const fetchData = useCallback(() => {
     fetch('./data.json')
@@ -41,7 +52,7 @@ function App() {
 
         <Row className="justify-content-center">
           <Col md={6}>
-            <Search />
+            <Search query={query} onQueryChange={myQuery => setQuery(myQuery)}/>
           </Col>
         </Row>
 
@@ -51,12 +62,12 @@ function App() {
   <Card className="mb-3 p-0">
     <Card.Header>Appointments</Card.Header>
     <ListGroup variant="flash text-start">
-      {appointmentList.map(appointment => (
+      {filteredAppointments.map(appointment => (
         <AppointmentInfo key={appointment.id} appointment={appointment}
         onDeleteAppointment={appointmentId => setAppointmentList(appointmentList.filter(
           appointment => appointment.id !== appointmentId
         ))
-      }/>
+      } />
       ))}
     </ListGroup>
   </Card>
