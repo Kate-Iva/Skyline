@@ -4,10 +4,25 @@ import { BsCalendar2HeartFill } from 'react-icons/bs';
 import { Col, Container, Row, Card, ListGroup, } from 'react-bootstrap';
 import Search from './components/Search.jsx';
 import AddAppointment from './components/AddAppointment.jsx';
-import appointmentList from './data.json';
 import AppointmentInfo from './components/AppointmentInfo.jsx';
+import { useCallback, useEffect, useState } from 'react';
 
 function App() {
+
+  let [appointmentList, setAppointmentList] = useState([]);
+
+  const fetchData = useCallback(() => {
+    fetch('./data.json')
+    .then(response => response.json())
+    .then(data => {
+      setAppointmentList(data)
+    });
+  }, [])
+
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
+
   return (
     <>
       <Container>
@@ -35,9 +50,13 @@ function App() {
 
   <Card className="mb-3 p-0">
     <Card.Header>Appointments</Card.Header>
-    <ListGroup variant="flash">
+    <ListGroup variant="flash text-start">
       {appointmentList.map(appointment => (
-        <AppointmentInfo key={appointment.id} appointment={appointment}/>
+        <AppointmentInfo key={appointment.id} appointment={appointment}
+        onDeleteAppointment={appointmentId => setAppointmentList(appointmentList.filter(
+          appointment => appointment.id !== appointmentId
+        ))
+      }/>
       ))}
     </ListGroup>
   </Card>
