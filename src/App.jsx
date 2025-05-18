@@ -11,6 +11,8 @@ function App() {
 
   let [appointmentList, setAppointmentList] = useState([]);
   let [query, setQuery] = useState("");
+  let [sortBy, setSortBy] = useState("firstName");
+  let [orderBy, setOrderBy] = useState("asc");
 
   const filteredAppointments = appointmentList.filter(
     item => {
@@ -18,7 +20,12 @@ function App() {
         item.firstName.toLowerCase().includes(query.toLocaleLowerCase()) ||
         item.lastName.toLowerCase().includes(query.toLocaleLowerCase()) ||
         item.aptNotes.toLowerCase().includes(query.toLocaleLowerCase()) 
-      )
+      ).sort((a, b) => {
+        let order = (orderBy === "asc") ? 1 : -1;
+        return (
+          a[sortBy].toLowerCase() < b[sortBy].toLowerCase() ? -1 * order : 1 * order
+        )
+      })
     }
   )
 
