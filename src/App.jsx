@@ -17,17 +17,20 @@ function App() {
   const filteredAppointments = appointmentList.filter(
     item => {
       return (
-        item.firstName.toLowerCase().includes(query.toLocaleLowerCase()) ||
-        item.lastName.toLowerCase().includes(query.toLocaleLowerCase()) ||
-        item.aptNotes.toLowerCase().includes(query.toLocaleLowerCase()) 
-      ).sort((a, b) => {
-        let order = (orderBy === "asc") ? 1 : -1;
-        return (
-          a[sortBy].toLowerCase() < b[sortBy].toLowerCase() ? -1 * order : 1 * order
-        )
-      })
+        item.firstName.toLowerCase().includes(query.toLowerCase()) ||
+        item.lastName.toLowerCase().includes(query.toLowerCase()) ||
+        item.aptNotes.toLowerCase().includes(query.toLowerCase())
+      );
     }
-  )
+  ).slice().sort((a, b) => {
+    const aField = a[sortBy].toLowerCase();
+    const bField = b[sortBy].toLowerCase();
+    let order = (orderBy === "asc") ? 1 : -1;
+    if (aField < bField) return -1 * order;
+    if (aField > bField) return 1 * order;
+    return 0;
+  });
+  
 
   const fetchData = useCallback(() => {
     fetch('./data.json')
@@ -58,8 +61,14 @@ function App() {
 </Row>
 
         <Row className="justify-content-center">
-          <Col md={6}>
-            <Search query={query} onQueryChange={myQuery => setQuery(myQuery)}/>
+          <Col md={12}>
+            <Search 
+            query={query} 
+            onQueryChange={myQuery => setQuery(myQuery)}
+            orderBy={orderBy}
+            onOrderByChange={mySort => setOrderBy(mySort)}
+            sortBy={sortBy}
+            onSortByChange={mySort => setSortBy(mySort)}/>
           </Col>
         </Row>
 
