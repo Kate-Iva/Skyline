@@ -56,9 +56,9 @@ const AddAppointment = ({lastId, onSendAppointment}) => {
                   <Form.Control
                     type="text"
                     placeholder="Last Name"
-                    id="larstName"
+                    id="lastName"
                     onChange={(event) => {
-                        setFormData( {...formData, larstName: event.target.value})}}
+                        setFormData( {...formData, lastName: event.target.value})}}
                   ></Form.Control>
                 </Form.Group>
               </Row>
@@ -66,7 +66,7 @@ const AddAppointment = ({lastId, onSendAppointment}) => {
               <Form.Group as={Col} className="mb-3">
                 <Form.Label>Appointment Date</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="date"
                   placeholder="Appointment Date"
                   id="aptDate"
                     onChange={(event) => {
@@ -77,7 +77,7 @@ const AddAppointment = ({lastId, onSendAppointment}) => {
               <Form.Group as={Col} className="mb-3">
                 <Form.Label>Appointment Time</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="time"
                   placeholder="Appointment Time"
                   id="aptTime"
                     onChange={(event) => {
