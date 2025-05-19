@@ -1,9 +1,30 @@
 import { CardBody, Col, Card, Form, Row, Button } from 'react-bootstrap';
 import { useState } from 'react';
-const AddAppointment = () => {
+const AddAppointment = ({lastId, onSendAppointment}) => {
+
+    const clearData ={
+        firstName: "",
+        lastName: "",
+        aptDate: "",
+        aptTime: "",
+        aptNotes: ""
+    }
 
     let [toggleForm, setToggleForm] = useState(false);
+    let [formData, setFormData] = useState(clearData);
 
+    function formDataPublish() {
+        const appointmentInfo = {
+            id: lastId + 1,
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            aptDate: formData.aptDate + " " + formData.aptTime,
+            aptNotes: formData.aptNotes
+        }
+        onSendAppointment(appointmentInfo);
+        setFormData(clearData);
+        setToggleForm(!toggleForm);
+    }
   return (
     <>
       <Col md={12}>
@@ -23,7 +44,11 @@ const AddAppointment = () => {
                   <Form.Control
                     type="text"
                     placeholder="First Name"
-                  ></Form.Control>
+                    id="firstName"
+                    onChange={(event) => {
+                        setFormData( {...formData, firstName: event.target.value})}} />
+
+                       
                 </Form.Group>
                
                 <Form.Group as={Col}>
@@ -31,6 +56,9 @@ const AddAppointment = () => {
                   <Form.Control
                     type="text"
                     placeholder="Last Name"
+                    id="larstName"
+                    onChange={(event) => {
+                        setFormData( {...formData, larstName: event.target.value})}}
                   ></Form.Control>
                 </Form.Group>
               </Row>
@@ -40,6 +68,9 @@ const AddAppointment = () => {
                 <Form.Control
                   type="text"
                   placeholder="Appointment Date"
+                  id="aptDate"
+                    onChange={(event) => {
+                        setFormData( {...formData, aptDate: event.target.value})}}
                 ></Form.Control>
               </Form.Group>
              
@@ -48,6 +79,9 @@ const AddAppointment = () => {
                 <Form.Control
                   type="text"
                   placeholder="Appointment Time"
+                  id="aptTime"
+                    onChange={(event) => {
+                        setFormData( {...formData, aptTime: event.target.value})}}
                 ></Form.Control>
               </Form.Group>
              
@@ -56,10 +90,13 @@ const AddAppointment = () => {
                 <Form.Control
                   as="textarea"
                   placeholder="Comments"
+                  id="aptNotes"
+                    onChange={(event) => {
+                        setFormData( {...formData, aptNotes: event.target.value})}}
                 ></Form.Control>
               </Form.Group>
              
-              <Button variant="primary">Submit</Button>
+              <Button variant="primary" onClick={formDataPublish}>Submit</Button>
             </Form>
           </CardBody>
           }

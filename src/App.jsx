@@ -57,7 +57,9 @@ function App() {
         </Row>
 
 <Row className='justify-content-center'>
-  <AddAppointment/>
+  <AddAppointment 
+  onSendAppointment={myAppointment => setAppointmentList([...appointmentList, myAppointment])} 
+  lastId={appointmentList.reduce((max, item) => Math.max( max, Number(item.id)), 0)}/>
 </Row>
 
         <Row className="justify-content-center">
@@ -77,7 +79,7 @@ function App() {
 
   <Card className="mb-3 p-0">
     <Card.Header>Appointments</Card.Header>
-    <ListGroup variant="flash text-start">
+    <ListGroup variant="flush" className=' text-start'>
       {filteredAppointments.map(appointment => (
         <AppointmentInfo key={appointment.id} appointment={appointment}
         onDeleteAppointment={appointmentId => setAppointmentList(appointmentList.filter(
